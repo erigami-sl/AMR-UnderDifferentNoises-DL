@@ -27,11 +27,8 @@ Based on: Zhang, F. et al. (2022). *"Deep Learning Based Automatic Modulation Re
 │       ├── mcldnn.py           # MCLDNN architecture
 │       └── petcgdnn.py         # PET-CGDNN architecture
 ├── notebooks/                  # Colab notebooks
-├── data/                       # Dataset (not tracked by git)
+├── data/                       # Dataset (not tracked by git, see data/README.md)
 ├── results/                    # Training results
-├── RML201610a/                 # Original benchmark code (reference)
-│   ├── MCLDNN/
-│   └── PET-CGDNN/
 ├── requirements.txt
 └── README.md
 ```
