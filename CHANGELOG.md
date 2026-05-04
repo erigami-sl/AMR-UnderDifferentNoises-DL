@@ -104,8 +104,36 @@ AMR-UnderDifferentNoises-DL/
 | `src/config.py` | Tüm path'ler, hyperparametreler ve Colab/lokal ortam algılama burada. Hardcoded path **YOK**. |
 | `src/utils/dataset.py` | Veri yükleme + her model için farklı input formatı hazırlama (`prepare_data_mcldnn`, `prepare_data_petcgdnn`) |
 | `src/utils/metrics.py` | Confusion matrix, SNR vs accuracy grafikleri, tam değerlendirme pipeline'ı (`evaluate_model`) |
-| `src/models/mcldnn.py` | MCLDNN model tanımı (henüz TF1 importları — Task 2'de TF2'ye migrate edilecek) |
-| `src/models/petcgdnn.py` | PET-CGDNN model tanımı (henüz TF1 importları — Task 2'de TF2'ye migrate edilecek) |
+| `src/models/mcldnn.py` | MCLDNN model tanımı (**TF2 uyumlu** ✅) |
+| `src/models/petcgdnn.py` | PET-CGDNN model tanımı (**TF2 uyumlu** ✅) |
+
+---
+
+## ✅ Task 2: TF1 → TF2 Kod Migration
+**Tarih:** 2026-05-05  
+**Commit:** `[migration] TF1→TF2: migrate MCLDNN and PET-CGDNN to tf.keras`
+
+#### Ne yapıldı?
+Her iki model dosyası TensorFlow 2 / tf.keras ile uyumlu hale getirildi.
+
+#### Yapılan değişiklikler
+
+| Eski (TF1/Keras 2.2) | Yeni (TF2/tf.keras) | Neden? |
+|---|---|---|
+| `from keras.layers import CuDNNLSTM` | `from tensorflow.keras.layers import LSTM` | CuDNNLSTM TF2'de kaldırıldı. TF2 LSTM, GPU varsa otomatik CuDNN kullanır |
+| `from keras.layers import CuDNNGRU` | `from tensorflow.keras.layers import GRU` | Aynı sebep |
+| `import keras` / `from keras.xxx` | `from tensorflow.keras.xxx` | TF2'de keras, tf.keras altında birleşti |
+| `keras.optimizers.Adam(lr=...)` | `tf.keras.optimizers.Adam(learning_rate=...)` | `lr` parametresi deprecated |
+| `tf.keras.backend.cos(x)` | `tf.math.cos(x)` | Daha doğrudan API |
+| `from keras.layers.convolutional import Conv2D` | `from tensorflow.keras.layers import Conv2D` | Alt modül yapısı değişti |
+| `from keras.utils.vis_utils import plot_model` | Kaldırıldı (gerektiğinde `tf.keras.utils.plot_model`) | Gereksiz import |
+
+#### Dosyalara eklenen dokümantasyon
+- Her iki model dosyasına paper referansı, mimari açıklaması ve parametre dokümantasyonu eklendi
+- `__main__` bloğu TF2 uyumlu hale getirildi
+
+> **Not:** Model mimarisi (katman sayısı, filtre boyutları, aktivasyonlar) hiç değiştirilmedi.  
+> Sadece TF2 API uyumluluğu sağlandı.
 
 ---
 
@@ -113,8 +141,9 @@ AMR-UnderDifferentNoises-DL/
 
 | Task | Açıklama | Durum |
 |------|----------|-------|
-| Task 2 | TF1 → TF2 kod migration | 🔜 Sırada |
-| Task 3 | Google Colab notebook oluşturma | ⏳ Beklemede |
+| Task 1 | Proje yapısını yeniden düzenleme | ✅ Tamamlandı |
+| Task 2 | TF1 → TF2 kod migration | ✅ Tamamlandı |
+| Task 3 | Google Colab notebook oluşturma | 🔜 Sırada |
 | Task 4 | Dataset indirme + doğrulama (Colab) | ⏳ Beklemede |
 | Task 5 | Baseline model eğitimi (Colab GPU) | ⏳ Beklemede |
 | Task 6 | Baseline sonuç raporlama | ⏳ Beklemede |
@@ -130,7 +159,7 @@ C: ~500MB boyutunda, GitHub'ın 100MB dosya limiti var. Google Drive üzerinden 
 C: `dev/project-restructure`. Main branch'e dokunmayın.
 
 **S: Kod henüz çalışıyor mu?**  
-C: Hayır. Model dosyaları (`src/models/`) hâlâ TF1 importları içeriyor. Task 2'den sonra TF2 ile çalışır hale gelecek.
+C: Model dosyaları TF2'ye migrate edildi ✅. Ancak eğitim için Google Colab notebook'ları (Task 3) ve dataset (Task 4) gerekli.
 
 **S: Google Colab'da nasıl çalıştıracağım?**  
 C: Task 3'te Colab notebook'ları oluşturulacak. O zamana kadar bekleyin.
