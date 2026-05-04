@@ -24,11 +24,17 @@ COLAB_DATASET_PATH = os.path.join(COLAB_DRIVE_PATH, DATASET_FILENAME)
 # ──────────────────────────────────────────────
 # Dataset Constants
 # ──────────────────────────────────────────────
+# These are the actual key names in the RML2016.10a pickle file (sorted order)
 MODULATION_CLASSES = [
     '8PSK', 'AM-DSB', 'AM-SSB', 'BPSK', 'CPFSK',
-    'GFSK', '4-PAM', '16-QAM', '64-QAM', 'QPSK', 'WBFM'
+    'GFSK', 'PAM4', 'QAM16', 'QAM64', 'QPSK', 'WBFM'
 ]
 NUM_CLASSES = len(MODULATION_CLASSES)  # 11
+
+# Display names for plots (prettier labels used in the original paper)
+MODULATION_DISPLAY_NAMES = {
+    'PAM4': '4-PAM', 'QAM16': '16-QAM', 'QAM64': '64-QAM'
+}
 SAMPLE_LENGTH = 128                     # IQ sample length
 NUM_CHANNELS = 2                        # I and Q channels
 RANDOM_SEED = 2016                      # For reproducibility (same as original paper)
