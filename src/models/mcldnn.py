@@ -73,12 +73,12 @@ def MCLDNN(weights=None,
     # I channel branch
     x2 = Conv1D(50, 8, padding='causal', activation='relu',
                 name='conv1_2', kernel_initializer='glorot_uniform')(input2)
-    x2_reshape = Reshape([-1, 128, 50])(x2)
+    x2_reshape = Reshape([-1, 128, 50], name='reshape_i')(x2)
 
     # Q channel branch
     x3 = Conv1D(50, 8, padding='causal', activation='relu',
                 name='conv1_3', kernel_initializer='glorot_uniform')(input3)
-    x3_reshape = Reshape([-1, 128, 50], name='reshap2')(x3)
+    x3_reshape = Reshape([-1, 128, 50], name='reshape_q')(x3)
 
     # --- Concatenation and Fusion ---
     x = concatenate([x2_reshape, x3_reshape], axis=1)
@@ -90,7 +90,7 @@ def MCLDNN(weights=None,
 
     # --- LSTM Unit ---
     # TF2: LSTM replaces CuDNNLSTM (auto-uses CuDNN when GPU available)
-    x = Reshape(target_shape=(124, 100), name='reshape')(x)
+    x = Reshape(target_shape=(124, 100), name='reshape_lstm')(x)
     x = LSTM(units=128, return_sequences=True)(x)
     x = LSTM(units=128)(x)
 
