@@ -78,23 +78,23 @@ def PETCGDNN(weights=None,
     input2 = Input(input_shape2, name='input3')      # Q channel:   (128,)
 
     # --- Parameter Estimation (Phase θ) ---
-    x1 = Flatten()(inp)
-    x1 = Dense(1, name='fc2')(x1)
-    x1 = Activation('linear')(x1)
+    x1 = Flatten(name='flatten_iq')(inp)
+    x1 = Dense(1, name='phase_estimate')(x1)
+    x1 = Activation('linear', name='phase_linear')(x1)
 
     # --- Phase Transformation ---
-    cos1 = Lambda(_cos)(x1)
-    sin1 = Lambda(_sin)(x1)
+    cos1 = Lambda(_cos, name='lambda_cos')(x1)
+    sin1 = Lambda(_sin, name='lambda_sin')(x1)
 
     # y1 = I·cos(θ) + Q·sin(θ)
-    x11 = Multiply()([input1, cos1])
-    x12 = Multiply()([input2, sin1])
-    y1 = Add()([x11, x12])
+    x11 = Multiply(name='mul_i_cos')([input1, cos1])
+    x12 = Multiply(name='mul_q_sin')([input2, sin1])
+    y1 = Add(name='add_y1')([x11, x12])
 
     # y2 = Q·cos(θ) − I·sin(θ)
-    x21 = Multiply()([input2, cos1])
-    x22 = Multiply()([input1, sin1])
-    y2 = Subtract()([x21, x22])
+    x21 = Multiply(name='mul_q_cos')([input2, cos1])
+    x22 = Multiply(name='mul_i_sin')([input1, sin1])
+    y2 = Subtract(name='sub_y2')([x21, x22])
 
     y1 = Reshape(target_shape=(128, 1), name='reshape1')(y1)
     y2 = Reshape(target_shape=(128, 1), name='reshape2')(y2)
@@ -110,7 +110,7 @@ def PETCGDNN(weights=None,
     # --- Temporal Feature Extraction (GRU) ---
     # TF2: GRU replaces CuDNNGRU (auto-uses CuDNN when GPU available)
     x4 = Reshape(target_shape=(117, 25), name='reshape4')(x3)
-    x4 = GRU(units=128)(x4)
+    x4 = GRU(units=128, name='gru')(x4)
 
     # --- Classifier ---
     x = Dense(classes, activation='softmax', name='softmax')(x4)

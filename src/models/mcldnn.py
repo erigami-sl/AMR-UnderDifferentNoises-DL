@@ -91,14 +91,14 @@ def MCLDNN(weights=None,
     # --- LSTM Unit ---
     # TF2: LSTM replaces CuDNNLSTM (auto-uses CuDNN when GPU available)
     x = Reshape(target_shape=(124, 100), name='reshape_lstm')(x)
-    x = LSTM(units=128, return_sequences=True)(x)
-    x = LSTM(units=128)(x)
+    x = LSTM(units=128, return_sequences=True, name='lstm1')(x)
+    x = LSTM(units=128, name='lstm2')(x)
 
     # --- Dense Classifier ---
     x = Dense(128, activation='selu', name='fc1')(x)
-    x = Dropout(dr)(x)
+    x = Dropout(dr, name='dropout1')(x)
     x = Dense(128, activation='selu', name='fc2')(x)
-    x = Dropout(dr)(x)
+    x = Dropout(dr, name='dropout2')(x)
     x = Dense(classes, activation='softmax', name='softmax')(x)
 
     model = Model(inputs=[input1, input2, input3], outputs=x)
