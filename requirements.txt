@@ -1,0 +1,11 @@
+# AMR Under Different Noises - Dependencies
+# For Google Colab (TF2 is pre-installed)
+# Install with: pip install -r requirements.txt
+
+tensorflow>=2.10.0
+numpy>=1.21.0
+matplotlib>=3.5.0
+scikit-learn>=1.0.0
+h5py>=3.0.0
+pickle5>=0.0.11; python_version < "3.8"
+commpy>=0.7.0
