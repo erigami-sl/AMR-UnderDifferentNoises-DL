@@ -135,6 +135,32 @@ Her iki model dosyası TensorFlow 2 / tf.keras ile uyumlu hale getirildi.
 > **Not:** Model mimarisi (katman sayısı, filtre boyutları, aktivasyonlar) hiç değiştirilmedi.  
 > Sadece TF2 API uyumluluğu sağlandı.
 
+## ✅ Task 3: Google Colab Notebook Oluşturma
+**Tarih:** 2026-05-05  
+**Commit:** `[notebooks] add baseline training notebooks for MCLDNN and PET-CGDNN`
+
+#### Oluşturulan notebook'lar
+
+| Notebook | Model | Konum |
+|----------|-------|-------|
+| `01_baseline_mcldnn.ipynb` | MCLDNN | `notebooks/` |
+| `02_baseline_petcgdnn.ipynb` | PET-CGDNN | `notebooks/` |
+
+#### Her notebook şunları içerir:
+1. **Ortam kurulumu** — GPU kontrolü, TF versiyon doğrulama
+2. **Drive mount + Repo klonlama** — `git clone -b dev/project-restructure`
+3. **Dataset yükleme** — Drive veya lokal path otomatik algılama
+4. **Veri görselleştirme** — Örnek IQ sinyalleri (6 farklı modülasyon)
+5. **Model oluşturma** — `src/models/` modüllerinden import
+6. **Eğitim** — EarlyStopping, ReduceLR, ModelCheckpoint
+7. **Değerlendirme** — Confusion matrix, SNR vs accuracy, per-mod accuracy
+8. **Sonuç kaydetme** — Ağırlıklar + sonuçlar Drive'a kaydedilir
+
+#### ⚠️ Kullanım öncesi yapılması gerekenler:
+1. Notebook'ta `REPO_URL` değişkenini kendi repo URL'niz ile güncelleyin
+2. Dataset'i Drive'a yükleyin: `MyDrive/AMR-Project/RML2016.10a_dict.pkl`
+3. Colab'da Runtime → Change runtime type → **GPU (T4)** seçin
+
 ---
 
 ## ⏳ Sıradaki Görevler
@@ -143,8 +169,8 @@ Her iki model dosyası TensorFlow 2 / tf.keras ile uyumlu hale getirildi.
 |------|----------|-------|
 | Task 1 | Proje yapısını yeniden düzenleme | ✅ Tamamlandı |
 | Task 2 | TF1 → TF2 kod migration | ✅ Tamamlandı |
-| Task 3 | Google Colab notebook oluşturma | 🔜 Sırada |
-| Task 4 | Dataset indirme + doğrulama (Colab) | ⏳ Beklemede |
+| Task 3 | Google Colab notebook oluşturma | ✅ Tamamlandı |
+| Task 4 | Dataset indirme + doğrulama (Colab) | 🔜 Sırada |
 | Task 5 | Baseline model eğitimi (Colab GPU) | ⏳ Beklemede |
 | Task 6 | Baseline sonuç raporlama | ⏳ Beklemede |
 
@@ -159,7 +185,11 @@ C: ~500MB boyutunda, GitHub'ın 100MB dosya limiti var. Google Drive üzerinden 
 C: `dev/project-restructure`. Main branch'e dokunmayın.
 
 **S: Kod henüz çalışıyor mu?**  
-C: Model dosyaları TF2'ye migrate edildi ✅. Ancak eğitim için Google Colab notebook'ları (Task 3) ve dataset (Task 4) gerekli.
+C: Evet! Notebook'lar hazır ✅. Dataset'i Drive'a yükleyip Colab'da çalıştırabilirsiniz.
 
 **S: Google Colab'da nasıl çalıştıracağım?**  
-C: Task 3'te Colab notebook'ları oluşturulacak. O zamana kadar bekleyin.
+C: `notebooks/` klasöründeki `.ipynb` dosyalarını Colab'a yükleyin. İlk hücrede repo klonlanır, Drive mount edilir ve eğitim başlar.
+
+**S: REPO_URL ne olmalı?**  
+C: GitHub'daki repo URL'niz. Örnek: `https://github.com/KULLANICI_ADI/AMR-UnderDifferentNoises-DL.git`
+
