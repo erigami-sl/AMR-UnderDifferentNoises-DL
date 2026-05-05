@@ -9,21 +9,35 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 
 ---
 
-## 🔀 Git Kullanım Rehberi
+## 🔀 Git Branch (Dallanma) Sistemi ve Kullanım Rehberi
 
-### Repo'yu klonlama (ilk kez)
+Projeyi düzenli tutmak ve ekip içi çakışmaları önlemek için aşağıdaki branch yapısı kullanılmaktadır:
+
+### 1. Branch Yapımız
+```text
+main                                ← Her zaman ÇALIŞAN, STABİL ve TAMAMLANMIŞ faz kodlarını içerir.
+├── dev/project-restructure         ← (KAPANDI) Faz 1: Proje yapısı ve TF2 migration. -> main'e eklendi.
+└── dev/phase2-channel-modeling     ← (AKTİF) Faz 2: Rayleigh ve Rician kanal modellerinin eklenmesi.
+```
+- **`main`**: Sadece bir faz tamamen bitip test edildiğinde güncellenir.
+- **`dev/*`**: Günlük geliştirmeler ve yeni tasklar bu alt branch'lerde yapılır.
+
+### 2. Nasıl Çalışmalısınız?
+
+**A. Projeyi ilk kez indiriyorsanız:**
 ```bash
 git clone https://github.com/erigami-sl/AMR-UnderDifferentNoises-DL.git
 cd AMR-UnderDifferentNoises-DL
 ```
 
-### Geliştirme branch'ine geçiş
-Şu anda Faz 2 çalışmaları `dev/phase2-channel-modeling` branch'inde yürütülmektedir.
+**B. Aktif çalışma branch'ine geçiş yapma (ZORUNLU):**
+Asla `main` üzerinde değişiklik yapmayın. Aktif geliştirme branch'ine geçin:
 ```bash
 git checkout dev/phase2-channel-modeling
 ```
 
-### Güncellemeleri alma
+**C. Güncel kodları alma:**
+Çalışmaya başlamadan önce her zaman güncel kodları çekin:
 ```bash
 git pull origin dev/phase2-channel-modeling
 ```
