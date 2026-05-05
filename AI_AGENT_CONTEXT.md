@@ -6,6 +6,7 @@ This file is the single source of truth for the project. It replaces the origina
 - **Rule 1: Always update CHANGELOG.md:** After completing any task, you MUST log your actions, changes, and bug fixes in `CHANGELOG.md` so the human team knows exactly what was done.
 - **Rule 2: Commit after every task:** You MUST `git add` and `git commit` your changes logically after finishing a distinct piece of work. Include descriptive commit messages and push to the remote branch frequently.
 - **Rule 3: Branching Discipline:** Never develop on `main`. All work must be done on the `dev` branch. `main` is strictly for fully tested, completed phase releases.
+- **Rule 4: Keep THIS Context File Updated:** If the project phase changes, the architecture shifts, or new dependencies are added, you MUST update `AI_AGENT_CONTEXT.md` to reflect the latest state. This file must never go stale.
 
 ## 2. Project Proposal & Background
 - **Problem Statement:** Automatic Modulation Recognition (AMR) plays a crucial role in signal processing, spectrum monitoring, and cognitive radio. Manual feature extraction is tedious; ML models automate this to reduce time and improve efficiency.
