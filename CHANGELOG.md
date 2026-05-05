@@ -217,6 +217,29 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 
 ---
 
+### Task 7b: Kanal Modellerinin Doğrulanması (Verification)
+**Tarih:** 2026-05-05  
+**Branch:** `dev`
+**Notebook:** `notebooks/03_verify_channels.ipynb`
+
+#### Ne yapıldı?
+- `channels.py` implementasyonu 6 farklı test ile doğrulandı:
+  1. **Shape ve hata kontrolü:** Çıkış boyutları, NaN kontrolü, geçersiz parametre hata fırlatması ✅
+  2. **Rayleigh |h|² dağılımı:** Exponential(1) dağılımına uyduğu doğrulandı ✅
+  3. **Rician K-faktörü:** K=0.1, 1.0, 10.0 için dağılım kontrol edildi ✅
+  4. **Sinyal gücü analizi:** Fading öncesi/sonrası güç oranları ölçüldü ✅
+  5. **IQ görselleştirme:** Orijinal vs faded sinyal karşılaştırması (zaman serisi + constellation) ✅
+  6. **generate_faded_dataset:** Tam dataset üzerinde çalışma ve performans testi ✅
+
+#### Tespit edilen eksikler / öneriler
+| # | Bulgu | Önem | Durum |
+|---|-------|------|-------|
+| 1 | `seed` parametresi yok → tekrarlanabilirlik sağlanamıyor | Orta | Task 8'de eklenecek |
+| 2 | Fading sonrası güç normalizasyonu opsiyonu yok | Düşük | Task 8'de değerlendirilecek |
+| 3 | `__init__.py`'de channels import'u eksik | Düşük | Fonksiyonel etki yok |
+
+---
+
 ## ❓ Sıkça Sorulan Sorular
 
 **S: Dataset neden Git'te yok?**  
