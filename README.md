@@ -21,12 +21,17 @@ Based on: Zhang, F. et al. (2022). *"Deep Learning Based Automatic Modulation Re
 ├── src/
 │   ├── config.py              # Central configuration
 │   ├── utils/
+│   │   ├── channels.py        # Rayleigh & Rician fading simulation
 │   │   ├── dataset.py         # Data loading & preprocessing
 │   │   └── metrics.py         # Evaluation & plotting
 │   └── models/
 │       ├── mcldnn.py           # MCLDNN architecture
 │       └── petcgdnn.py         # PET-CGDNN architecture
 ├── notebooks/                  # Colab notebooks
+│   ├── 01_baseline_mcldnn.ipynb
+│   ├── 02_baseline_petcgdnn.ipynb
+│   ├── 03_verify_channels.ipynb
+│   └── 04_generate_faded_datasets.ipynb
 ├── data/                       # Dataset (not tracked by git, see data/README.md)
 ├── results/                    # Training results
 ├── requirements.txt

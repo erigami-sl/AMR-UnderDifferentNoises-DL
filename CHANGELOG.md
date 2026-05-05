@@ -5,7 +5,7 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 
 ---
 
-## Son Güncelleme: 2026-05-05
+## Son Güncelleme: 2026-05-06
 
 ---
 
@@ -199,8 +199,8 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 | Task | Açıklama | Durum |
 |------|----------|-------|
 | Task 7 | Rayleigh ve Rician kanal modellerinin implementasyonu (`src/utils/channels.py`) | ✅ Tamamlandı |
-| Task 8 | Fading etkileri uygulanmış yeni datasetlerin üretilmesi | 🔜 Sırada |
-| Task 9 | Yeni kanal koşullarında model eğitimleri ve değerlendirmesi (Colab) | ⏳ Beklemede |
+| Task 8 | Fading etkileri uygulanmış yeni datasetlerin üretilmesi | ✅ Tamamlandı |
+| Task 9 | Yeni kanal koşullarında model eğitimleri ve değerlendirmesi (Colab) | 🔜 Sırada |
 
 ---
 
@@ -234,9 +234,38 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 #### Tespit edilen eksikler / öneriler
 | # | Bulgu | Önem | Durum |
 |---|-------|------|-------|
-| 1 | `seed` parametresi yok → tekrarlanabilirlik sağlanamıyor | Orta | Task 8'de eklenecek |
-| 2 | Fading sonrası güç normalizasyonu opsiyonu yok | Düşük | Task 8'de değerlendirilecek |
+| 1 | `seed` parametresi yok → tekrarlanabilirlik sağlanamıyor | Orta | ✅ Task 8'de eklendi |
+| 2 | Fading sonrası güç normalizasyonu opsiyonu yok | Düşük | ✅ Task 8'de eklendi (`normalize_power`) |
 | 3 | `__init__.py`'de channels import'u eksik | Düşük | Fonksiyonel etki yok |
+
+---
+
+### Task 8: Fading Uygulanmış Dataset Üretimi
+**Tarih:** 2026-05-06  
+**Branch:** `dev`  
+**Notebook:** `notebooks/04_generate_faded_datasets.ipynb`
+
+#### Ne yapıldı?
+
+1. **`channels.py` iyileştirmeleri** (Task 7b bulgularının çözümü):
+   - `seed` parametresi eklendi → tam tekrarlanabilirlik sağlandı
+   - `normalize_power` parametresi eklendi → opsiyonel güç normalizasyonu
+   - `generate_faded_dataset()` artık anahtarları sıralı işleyip deterministik sub-seed üretiyor
+
+2. **Üretim notebook'u** (`04_generate_faded_datasets.ipynb`):
+   - 3 farklı fading senaryosu için dataset üretimi
+   - İstatistiksel doğrulama (güç oranları, NaN kontrolü)
+   - IQ görselleştirme (zaman serisi + constellation)
+   - Google Drive'a otomatik kayıt ve geri-yükleme doğrulaması
+
+#### Üretilen dosyalar
+| Dosya | Kanal | Seed | Açıklama |
+|-------|-------|------|----------|
+| `RML2016.10a_rayleigh.pkl` | Rayleigh | 2016 | Derin sönümleme (NLOS) |
+| `RML2016.10a_rician_K3.pkl` | Rician K=3 | 3016 | Orta düzey LOS |
+| `RML2016.10a_rician_K10.pkl` | Rician K=10 | 4016 | Baskın LOS |
+
+Her dosya orijinal dataset ile aynı formatta: 220 anahtar, `(1000, 2, 128)` shape, ~611 MB.
 
 ---
 

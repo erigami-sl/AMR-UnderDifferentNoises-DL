@@ -1,6 +1,7 @@
 import numpy as np
 
-def apply_fading(X, channel_type='rayleigh', K=1.0, block_fading=True):
+def apply_fading(X, channel_type='rayleigh', K=1.0, block_fading=True,
+                 normalize_power=False, seed=None):
     """
     Apply flat fading (Rayleigh or Rician) to a batch of IQ signals.
     
@@ -15,6 +16,12 @@ def apply_fading(X, channel_type='rayleigh', K=1.0, block_fading=True):
     block_fading : bool
         If True, the fading coefficient is constant across the 128 samples of a single sequence.
         If False, the fading coefficient changes sample-by-sample (fast fading).
+    normalize_power : bool
+        If True, normalize each faded signal so that its average power matches
+        the original signal power. Useful when you want fading to change only
+        the phase/shape of the constellation, not the overall SNR.
+    seed : int or None
+        Random seed for reproducibility. If None, no seed is set.
         
     Returns
     -------
@@ -23,6 +30,9 @@ def apply_fading(X, channel_type='rayleigh', K=1.0, block_fading=True):
     """
     if X.ndim != 3 or X.shape[1] != 2:
         raise ValueError(f"Expected X shape (N, 2, 128), but got {X.shape}")
+
+    if seed is not None:
+        np.random.seed(seed)
         
     N, channels, seq_len = X.shape
     
@@ -56,6 +66,14 @@ def apply_fading(X, channel_type='rayleigh', K=1.0, block_fading=True):
     # Apply the fading to the complex signal
     faded_signal_complex = signal_complex * h
     
+    # Optional: normalize power to match original
+    if normalize_power:
+        orig_power = np.mean(np.abs(signal_complex)**2, axis=1, keepdims=True)
+        faded_power = np.mean(np.abs(faded_signal_complex)**2, axis=1, keepdims=True)
+        # Avoid division by zero for silent signals
+        scale = np.sqrt(np.where(faded_power > 0, orig_power / faded_power, 1.0))
+        faded_signal_complex = faded_signal_complex * scale
+    
     # Convert back to real-valued (I, Q) tensor
     X_faded = np.zeros_like(X)
     X_faded[:, 0, :] = np.real(faded_signal_complex)
@@ -63,7 +81,8 @@ def apply_fading(X, channel_type='rayleigh', K=1.0, block_fading=True):
     
     return X_faded
 
-def generate_faded_dataset(X_dict, channel_type='rayleigh', K=1.0):
+def generate_faded_dataset(X_dict, channel_type='rayleigh', K=1.0,
+                           normalize_power=False, seed=None):
     """
     Applies fading to the entire dataset dictionary and returns a new dictionary.
     
@@ -75,6 +94,12 @@ def generate_faded_dataset(X_dict, channel_type='rayleigh', K=1.0):
         Type of fading: 'rayleigh' or 'rician'.
     K : float
         Rician K-factor.
+    normalize_power : bool
+        If True, normalize faded signal power to match original.
+    seed : int or None
+        Master seed. Each (mod, snr) key gets a deterministic sub-seed derived
+        from this value, ensuring full reproducibility while keeping different
+        fading realizations per key.
         
     Returns
     -------
@@ -82,6 +107,11 @@ def generate_faded_dataset(X_dict, channel_type='rayleigh', K=1.0):
         New dictionary with faded signals.
     """
     X_dict_faded = {}
-    for key, X in X_dict.items():
-        X_dict_faded[key] = apply_fading(X, channel_type=channel_type, K=K)
+    sorted_keys = sorted(X_dict.keys())
+    for i, key in enumerate(sorted_keys):
+        sub_seed = (seed + i) if seed is not None else None
+        X_dict_faded[key] = apply_fading(
+            X_dict[key], channel_type=channel_type, K=K,
+            normalize_power=normalize_power, seed=sub_seed
+        )
     return X_dict_faded
