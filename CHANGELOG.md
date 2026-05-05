@@ -17,9 +17,15 @@ git clone https://github.com/erigami-sl/AMR-UnderDifferentNoises-DL.git
 cd AMR-UnderDifferentNoises-DL
 ```
 
+### Geliştirme branch'ine geçiş
+Şu anda Faz 2 çalışmaları `dev/phase2-channel-modeling` branch'inde yürütülmektedir.
+```bash
+git checkout dev/phase2-channel-modeling
+```
+
 ### Güncellemeleri alma
 ```bash
-git pull origin main
+git pull origin dev/phase2-channel-modeling
 ```
 
 ---
@@ -179,9 +185,22 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 
 | Task | Açıklama | Durum |
 |------|----------|-------|
-| Task 7 | Rayleigh ve Rician kanal modellerinin implementasyonu (`src/utils/channels.py`) | 🔜 Sırada |
-| Task 8 | Fading etkileri uygulanmış yeni datasetlerin üretilmesi | ⏳ Beklemede |
+| Task 7 | Rayleigh ve Rician kanal modellerinin implementasyonu (`src/utils/channels.py`) | ✅ Tamamlandı |
+| Task 8 | Fading etkileri uygulanmış yeni datasetlerin üretilmesi | 🔜 Sırada |
 | Task 9 | Yeni kanal koşullarında model eğitimleri ve değerlendirmesi (Colab) | ⏳ Beklemede |
+
+---
+
+### Task 7: Kanal Modellerinin İmplementasyonu
+**Tarih:** 2026-05-05  
+**Branch:** `dev/phase2-channel-modeling`
+
+#### Ne yapıldı?
+- AWGN verisine (orijinal dataset) sönümleme etkilerini (fading) ekleyen `src/utils/channels.py` oluşturuldu.
+- **Rayleigh Fading:** Sadece NLOS (görüş hattı dışı) yansımaların olduğu ortam modeli.
+- **Rician Fading:** Hem LOS (doğrudan görüş) hem de NLOS yansımaların bulunduğu ortam modeli. K-faktörü ayarlanabilir.
+- Model eğitimi sırasında doğrudan `(N, 2, 128)` formatındaki IQ sinyallerine uygulanacak şekilde NumPy ile vektörize olarak yazıldı (çok hızlı).
+- İstenirse blok-fading (tek paket boyunca sabit sönümleme) veya fast-fading (her örnekte değişen sönümleme) seçeneği eklendi.
 
 ---
 
