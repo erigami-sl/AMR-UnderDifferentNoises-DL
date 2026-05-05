@@ -1,14 +1,42 @@
 # 🤖 AI Agent Project Context
 
-This file is intended for other AI agents (like GitHub Copilot, Cursor, or other coding assistants) joining the project. It provides a quick summary of the project architecture, current state, and rules.
+This file is intended for other AI agents (like GitHub Copilot, Cursor, or other coding assistants) joining the project. It provides a comprehensive summary of the project proposal, architecture, current state, and git rules.
 
-## 1. Project Overview
-- **Objective:** Evaluate and improve Automatic Modulation Recognition (AMR) under different SISO channel conditions (AWGN, Rayleigh, Rician) using Deep Learning.
-- **Dataset:** RadioML 2016.10a (11 modulations, 20 SNR levels from -20 to +18 dB). The dataset is in `(1000, 2, 128)` format (I/Q channels). 
-- **Dataset Location:** Not in git (too large). Must be placed in `data/RML2016.10a_dict.pkl` or loaded from Google Drive in Colab.
-- **Models:** MCLDNN and PET-CGDNN (migrated from TF1/Keras2 to TF2/tf.keras).
+## 1. Project Background and Proposal
+- **Problem Statement:** In communication networks, Automatic Modulation Recognition (AMR) plays a crucial role in signal processing, spectrum monitoring, and cognitive radio. Traditional AMR requires extensive human expertise and manual feature extraction. Machine Learning (ML) models make this selection process automatic, reducing time and improving efficiency.
+- **Specific Challenges:** Noise and channel characteristics are non-deterministic and challenging to model. In communication, Signal-to-Noise Ratio (SNR) is a major issue that can lead to incorrect outcomes.
+- **Objective:** Evaluate and improve AMR under different SISO channel conditions (AWGN, Rayleigh, Rician) using Deep Learning, specifically aiming to develop models suitable for low-SNR systems for commercial use.
+- **Academic References:** 
+  - Main: *Zhang, F., Luo, C., ... Deep learning based automatic modulation recognition: Models, datasets, and challenges. Digital Signal Processing, 2022.*
+  - Additional: *O'Shea, J., ... Over-the-Air Deep Learning Based Radio Signal Classification. IEEE, 2018.*
+- **Baseline Repositories:** [AMR-Benchmark](https://github.com/Richardzhangxx/AMR-Benchmark) and [CommPy](https://github.com/veeresht/CommPy).
 
-## 2. Codebase Architecture
+## 2. Dataset Description
+- **Source:** RadioML 2016.10a (DeepSig, GNU Radio).
+- **Size:** 220,000 samples across 11 modulation classes (8PSK, AM-DSB, AM-SSB, BPSK, CPFSK, GFSK, PAM4, QAM16, QAM64, QPSK, WBFM).
+- **Format:** `(1000, 2, 128)` tensors representing I/Q channels.
+- **SNR Range:** -20 to +18 dB.
+- **Location:** Not in git (too large). Must be placed in `data/RML2016.10a_dict.pkl` or loaded from Google Drive in Colab.
+
+## 3. Project Phases and Timeline
+- **Phase 1: Environment & Baseline (Week 5-7) — [COMPLETED]**
+  - Dataset downloaded, preprocessed, and formatted (60/20/20 split).
+  - Code migrated from TF1/Keras2 to TF2/Keras3.
+  - Baseline models (MCLDNN and PET-CGDNN) reproduced from original implementations on the AWGN channel.
+- **Phase 2: Channel Modeling & Generation (Week 9) — [ACTIVE]**
+  - Integrate Rayleigh and Rician fading channels using `src/utils/channels.py`.
+  - Generate noisy datasets synthetically across multiple SNR levels.
+  - Complete initial training runs on these new datasets.
+- **Phase 3: Full Evaluation & Tuning (Week 12)**
+  - Collect full experimental results across all channel conditions.
+  - Complete hyperparameter tuning.
+  - Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
+  - Analyze known confusion pairs (16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
+- **Phase 4: Reporting & Finalization (Week 13-14)**
+  - Presentation delivery.
+  - Final report and documented code submission.
+
+## 4. Codebase Architecture
 The codebase was restructured from a scattered benchmark repository into a modular Python package:
 ```text
 AMR-UnderDifferentNoises-DL/
@@ -21,25 +49,16 @@ AMR-UnderDifferentNoises-DL/
     │   ├── mcldnn.py       # Keras 3 compatible MCLDNN architecture
     │   └── petcgdnn.py     # Keras 3 compatible PET-CGDNN architecture
     └── utils/
-        ├── channels.py     # Rayleigh & Rician fading simulation (Phase 2)
+        ├── channels.py     # Rayleigh & Rician fading simulation pipeline
         ├── dataset.py      # Data loading and preprocessing pipelines
         └── metrics.py      # Confusion matrix, accuracy plots, evaluation
 ```
 
-## 3. Current Phase and Git Strategy
-- **Phase 1 (Completed):** Baseline reproduction on AWGN channel. Code migrated to TF2, models trained, and evaluation pipelines created.
-- **Phase 2 (Active):** Channel modeling. Simulating Rayleigh and Rician fading on the AWGN dataset to evaluate model degradation.
-
-### Git Rules for AI Agents:
+## 5. Git Strategy & Branching Rules
 - **`main` branch:** STABLE ONLY. Do not push incomplete or untested code here.
-- **`dev` branch:** ACTIVE DEVELOPMENT. All new features, tests, and task implementations should be done and pushed here.
+- **`dev` branch:** ACTIVE DEVELOPMENT. All new features, tests, and task implementations must be done and pushed here.
 
-## 4. Key Implementation Details
-- **Keras 3 Compatibility:** All Keras layers must have explicit, unique `name` parameters to avoid `ValueError: duplicate name` when using Keras 3 (especially in loops or shared layers).
+## 6. Key Implementation Details
+- **Keras 3 Compatibility:** All Keras layers must have explicit, unique `name` parameters to avoid `ValueError: duplicate name` when using Keras 3.
 - **Plotting in Colab:** `matplotlib.use('Agg')` must NOT be used if inline plotting is required in Colab notebooks. We use standard `plt.show()`.
 - **Channel Modeling (`src/utils/channels.py`):** Fading is implemented via complex multiplication `(I + jQ) * h`. `h` is generated using numpy for vectorized speed over batches of `(N, 2, 128)`.
-
-## 5. Next Steps (Current To-Do)
-1. Generate faded datasets (Rayleigh, Rician) using `src/utils/channels.py`.
-2. Visualize the effect of fading on the IQ signals (e.g., in a new notebook `03_fading_dataset_generation.ipynb`).
-3. Train both MCLDNN and PET-CGDNN on the faded datasets to observe performance degradation.
