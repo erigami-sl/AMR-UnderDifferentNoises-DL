@@ -269,6 +269,22 @@ Her dosya orijinal dataset ile aynı formatta: 220 anahtar, `(1000, 2, 128)` sha
 
 ---
 
+### T8: Fading Etkilerinin IQ Sinyal Görselleştirmesi
+**Tarih:** 2026-05-06  
+**Branch:** `dev`  
+**Notebook:** `notebooks/05_visualize_fading_effects.ipynb`
+
+#### Ne yapıldı?
+- 4 dataset'i (AWGN + Rayleigh + Rician K=3 + Rician K=10) yükleyerek karşılaştırmalı görsel analiz notebook'u oluşturuldu.
+- **5 görselleştirme türü:**
+  1. Constellation diyagramları (11 modülasyon × 4 kanal grid)
+  2. I/Q zaman serisi karşılaştırması (dalga formu bozulması)
+  3. SNR vs kanal etkisi matrisi (çoklu SNR seviyesi)
+  4. Güç dağılımı histogramları (örnek başına güç analizi)
+  5. Kanal bozulma ısı haritası (tüm mod/SNR çiftleri için güç oranı)
+
+---
+
 ## ❓ Sıkça Sorulan Sorular
 
 **S: Dataset neden Git'te yok?**  

@@ -62,24 +62,24 @@ AMR-UnderDifferentNoises-DL/
 
 ## 5. Project Phases and Work Plan
 ### Phase 1: Environment & Baseline (Week 5-7) — ✅ COMPLETED
-- [x] Dataset downloaded, preprocessed, and formatted.
-- [x] Code migrated from TF1/Keras2 to TF2/Keras3.
-- [x] Baseline models (MCLDNN and PET-CGDNN) reproduced from original implementations on the AWGN channel.
-- [x] Colab baseline evaluation pipelines established.
+- [x] **T1:** Dataset downloaded, preprocessed, and formatted.
+- [x] **T2:** Code migrated from TF1/Keras2 to TF2/Keras3.
+- [x] **T3:** Baseline models (MCLDNN and PET-CGDNN) reproduced from original implementations on the AWGN channel.
+- [x] **T4:** Colab baseline evaluation pipelines established.
 
 ### Phase 2: Channel Modeling & Generation (Week 9) — 🔄 ACTIVE
-- [x] Integrate Rayleigh and Rician fading channels. (`src/utils/channels.py`)
-- [x] Verify channel model implementations. (`notebooks/03_verify_channels.ipynb`)
-- [x] Generate noisy datasets synthetically across multiple SNR levels using `src/utils/channels.py`. (`notebooks/04_generate_faded_datasets.ipynb`)
-- [ ] Visualize the fading effects on IQ signals.
-- [ ] Complete initial training runs on these new fading datasets.
+- [x] **T5:** Integrate Rayleigh and Rician fading channels. (`src/utils/channels.py`)
+- [x] **T6:** Verify channel model implementations. (`notebooks/03_verify_channels.ipynb`)
+- [x] **T7:** Generate noisy datasets synthetically across multiple SNR levels using `src/utils/channels.py`. (`notebooks/04_generate_faded_datasets.ipynb`)
+- [x] **T8:** Visualize the fading effects on IQ signals. (`notebooks/05_visualize_fading_effects.ipynb`)
+- [ ] **T9:** Complete initial training runs on these new fading datasets.
 
 ### Phase 3: Full Evaluation & Tuning (Week 12) — ⏳ PENDING
-- [ ] Collect full experimental results across all channel conditions.
-- [ ] Complete hyperparameter tuning (learning rate, batch size, patience).
-- [ ] Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
-- [ ] Analyze known confusion pairs (e.g., 16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
+- [ ] **T10:** Collect full experimental results across all channel conditions.
+- [ ] **T11:** Complete hyperparameter tuning (learning rate, batch size, patience).
+- [ ] **T12:** Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
+- [ ] **T13:** Analyze known confusion pairs (e.g., 16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
 
 ### Phase 4: Reporting & Finalization (Week 13-14) — ⏳ PENDING
-- [ ] Presentation delivery.
-- [ ] Final report and documented code submission.
+- [ ] **T14:** Presentation delivery.
+- [ ] **T15:** Final report and documented code submission.
