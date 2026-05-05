@@ -15,12 +15,11 @@ Projeyi düzenli tutmak ve ekip içi çakışmaları önlemek için aşağıdaki
 
 ### 1. Branch Yapımız
 ```text
-main                                ← Her zaman ÇALIŞAN, STABİL ve TAMAMLANMIŞ faz kodlarını içerir.
-├── dev/project-restructure         ← (KAPANDI) Faz 1: Proje yapısı ve TF2 migration. -> main'e eklendi.
-└── dev/phase2-channel-modeling     ← (AKTİF) Faz 2: Rayleigh ve Rician kanal modellerinin eklenmesi.
+main   ← Her zaman ÇALIŞAN, STABİL ve TAMAMLANMIŞ faz kodlarını içerir.
+└── dev    ← (AKTİF) Tüm geliştirme, yeni özellikler ve testler burada yapılır.
 ```
-- **`main`**: Sadece bir faz tamamen bitip test edildiğinde güncellenir.
-- **`dev/*`**: Günlük geliştirmeler ve yeni tasklar bu alt branch'lerde yapılır.
+- **`main`**: Sadece stabil kodlar burada tutulur. Doğrudan değişiklik yapılmaz.
+- **`dev`**: Aktif geliştirme ortamıdır. Yeni görevler ve güncellemeler burada gerçekleştirilir.
 
 ### 2. Nasıl Çalışmalısınız?
 
@@ -31,15 +30,15 @@ cd AMR-UnderDifferentNoises-DL
 ```
 
 **B. Aktif çalışma branch'ine geçiş yapma (ZORUNLU):**
-Asla `main` üzerinde değişiklik yapmayın. Aktif geliştirme branch'ine geçin:
+Her zaman `dev` branch'inde çalışın:
 ```bash
-git checkout dev/phase2-channel-modeling
+git checkout dev
 ```
 
 **C. Güncel kodları alma:**
 Çalışmaya başlamadan önce her zaman güncel kodları çekin:
 ```bash
-git pull origin dev/phase2-channel-modeling
+git pull origin dev
 ```
 
 ---
@@ -207,7 +206,7 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 
 ### Task 7: Kanal Modellerinin İmplementasyonu
 **Tarih:** 2026-05-05  
-**Branch:** `dev/phase2-channel-modeling`
+**Branch:** `dev`
 
 #### Ne yapıldı?
 - AWGN verisine (orijinal dataset) sönümleme etkilerini (fading) ekleyen `src/utils/channels.py` oluşturuldu.
