@@ -175,6 +175,16 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 
 ---
 
+### Faz 2 — Kanal Modelleme ve Yeni Koşullarda Eğitim
+
+| Task | Açıklama | Durum |
+|------|----------|-------|
+| Task 7 | Rayleigh ve Rician kanal modellerinin implementasyonu (`src/utils/channels.py`) | 🔜 Sırada |
+| Task 8 | Fading etkileri uygulanmış yeni datasetlerin üretilmesi | ⏳ Beklemede |
+| Task 9 | Yeni kanal koşullarında model eğitimleri ve değerlendirmesi (Colab) | ⏳ Beklemede |
+
+---
+
 ## ❓ Sıkça Sorulan Sorular
 
 **S: Dataset neden Git'te yok?**  
