@@ -7,8 +7,6 @@ Provides confusion matrix computation, accuracy plotting, and SNR analysis.
 Adapted from the code (https://github.com/leena201818/radiom) contributed by leena201818.
 """
 
-import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend for Colab/server
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
@@ -93,6 +91,7 @@ def plot_confusion_matrix(cm, labels, title='Confusion Matrix',
     if save_filename is not None:
         os.makedirs(os.path.dirname(save_filename), exist_ok=True)
         plt.savefig(save_filename, dpi=600, bbox_inches='tight')
+    plt.show()
     plt.close()
 
 
@@ -122,6 +121,7 @@ def plot_snr_accuracy(acc, snrs, title='Classification Accuracy on RadioML 2016.
     if save_filename is not None:
         os.makedirs(os.path.dirname(save_filename), exist_ok=True)
         plt.savefig(save_filename, dpi=300, bbox_inches='tight')
+    plt.show()
     plt.close()
 
 
@@ -154,6 +154,7 @@ def plot_per_mod_accuracy(acc_mod_snr, snrs, classes, save_filename=None):
     if save_filename is not None:
         os.makedirs(os.path.dirname(save_filename), exist_ok=True)
         plt.savefig(save_filename, dpi=300, bbox_inches='tight')
+    plt.show()
     plt.close()
 
 
@@ -181,6 +182,7 @@ def plot_training_history(history, save_dir=None):
     if save_dir:
         os.makedirs(save_dir, exist_ok=True)
         plt.savefig(os.path.join(save_dir, 'training_loss.png'), dpi=300)
+    plt.show()
     plt.close()
 
     # Accuracy plot
@@ -198,6 +200,7 @@ def plot_training_history(history, save_dir=None):
     plt.tight_layout()
     if save_dir:
         plt.savefig(os.path.join(save_dir, 'training_accuracy.png'), dpi=300)
+    plt.show()
     plt.close()
 
 
