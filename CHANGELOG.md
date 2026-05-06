@@ -200,7 +200,7 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 |------|----------|-------|
 | Task 7 | Rayleigh ve Rician kanal modellerinin implementasyonu (`src/utils/channels.py`) | ✅ Tamamlandı |
 | Task 8 | Fading etkileri uygulanmış yeni datasetlerin üretilmesi | ✅ Tamamlandı |
-| Task 9 | Yeni kanal koşullarında model eğitimleri ve değerlendirmesi (Colab) | 🔜 Sırada |
+| Task 9 | Yeni kanal koşullarında model eğitimleri ve değerlendirmesi (Colab) | ✅ Tamamlandı |
 
 ---
 
@@ -237,6 +237,30 @@ Her notebook: ortam kurulumu → Drive mount → repo klonlama → veri yükleme
 | 1 | `seed` parametresi yok → tekrarlanabilirlik sağlanamıyor | Orta | ✅ Task 8'de eklendi |
 | 2 | Fading sonrası güç normalizasyonu opsiyonu yok | Düşük | ✅ Task 8'de eklendi (`normalize_power`) |
 | 3 | `__init__.py`'de channels import'u eksik | Düşük | Fonksiyonel etki yok |
+
+---
+
+### Task 9: Yeni Kanal Koşullarında Model Eğitimi
+**Tarih:** 2026-05-06  
+**Branch:** `dev`  
+**Notebooks:** `notebooks/06_train_petcgdnn_fading.ipynb`, `notebooks/07_train_mcldnn_fading.ipynb`
+
+#### Ne yapıldı?
+- PET-CGDNN ve MCLDNN modelleri için fading kanal eğitim notebook'ları oluşturuldu
+- Her notebook 3 kanal koşulunda sırayla eğitim yapıyor:
+
+| Model | Kanal | Results Dizini |
+|-------|-------|---------------|
+| PET-CGDNN | Rayleigh | `results/petcgdnn/rayleigh/` |
+| PET-CGDNN | Rician K=3 | `results/petcgdnn/rician_K3/` |
+| PET-CGDNN | Rician K=10 | `results/petcgdnn/rician_K10/` |
+| MCLDNN | Rayleigh | `results/mcldnn/rayleigh/` |
+| MCLDNN | Rician K=3 | `results/mcldnn/rician_K3/` |
+| MCLDNN | Rician K=10 | `results/mcldnn/rician_K10/` |
+
+- AWGN baseline ile karşılaştırmalı SNR vs Accuracy grafiği oluşturuluyor
+- Sonuçlar (weights, accuracy, confusion matrix) Drive'a kaydediliyor
+- Hiperparametreler baseline ile aynı (epochs=1000, batch=400, lr=0.001, early_stop=50)
 
 ---
 

@@ -67,12 +67,12 @@ AMR-UnderDifferentNoises-DL/
 - [x] **T3:** Baseline models (MCLDNN and PET-CGDNN) reproduced from original implementations on the AWGN channel.
 - [x] **T4:** Colab baseline evaluation pipelines established.
 
-### Phase 2: Channel Modeling & Generation (Week 9) — 🔄 ACTIVE
+### Phase 2: Channel Modeling & Generation (Week 9) — ✅ COMPLETED
 - [x] **T5:** Integrate Rayleigh and Rician fading channels. (`src/utils/channels.py`)
 - [x] **T6:** Verify channel model implementations. (`notebooks/03_verify_channels.ipynb`)
 - [x] **T7:** Generate noisy datasets synthetically across multiple SNR levels using `src/utils/channels.py`. (`notebooks/04_generate_faded_datasets.ipynb`)
 - [x] **T8:** Visualize the fading effects on IQ signals. (`notebooks/05_visualize_fading_effects.ipynb`)
-- [ ] **T9:** Complete initial training runs on these new fading datasets.
+- [x] **T9:** Complete initial training runs on these new fading datasets. (`notebooks/06_train_petcgdnn_fading.ipynb`, `notebooks/07_train_mcldnn_fading.ipynb`)
 
 ### Phase 3: Full Evaluation & Tuning (Week 12) — ⏳ PENDING
 - [ ] **T10:** Collect full experimental results across all channel conditions.
