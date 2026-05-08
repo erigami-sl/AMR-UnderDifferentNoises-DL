@@ -5,7 +5,69 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 
 ---
 
-## Son Güncelleme: 2026-05-06
+## Son Güncelleme: 2026-05-08
+
+---
+
+### Faz 3 — Gelişmiş Metrikler, Fine-Tuning ve Colab Entegrasyonu
+
+| Task | Açıklama | Durum |
+|------|----------|-------|
+| Task 10 | F1 Score (Macro) ve MCC metrikleri eklenmesi | ✅ Tamamlandı |
+| Task 11 | CSVLogger ve eğitim geçmişi kaydetme | ✅ Tamamlandı |
+| Task 12 | Opsiyonel Fine-Tuning desteği (notebook'lara eklendi) | ✅ Tamamlandı |
+| Task 13 | `amr_all_in_one.py` — Colab tek dosya entegrasyonu | ✅ Tamamlandı |
+
+---
+
+### Task 10: F1 Score ve MCC Metrikleri
+**Tarih:** 2026-05-08
+**Branch:** `Phase_3`
+
+#### Ne yapıldı?
+- `src/utils/metrics.py` dosyasına `sklearn.metrics` ile **F1 Score (Macro)** ve **MCC (Matthews Correlation Coefficient)** hesaplaması eklendi
+- `evaluate_model()` fonksiyonu artık 4 değer döndürüyor: `acc, acc_mod_snr, f1_scores, mcc_scores`
+- Her SNR seviyesi için ayrı F1 ve MCC hesaplanıyor
+- `plot_snr_f1()` ve `plot_snr_mcc()` grafik fonksiyonları eklendi
+- F1 ve MCC sonuçları `.pkl` dosyası olarak kaydediliyor
+
+---
+
+### Task 11: CSVLogger ve Eğitim Geçmişi Kaydetme
+**Tarih:** 2026-05-08
+**Branch:** `Phase_3`
+
+#### Ne yapıldı?
+- Notebook callback'lerine `CSVLogger` eklendi (epoch bazlı loss/accuracy CSV kaydı)
+- Eğitim geçmişi `history.pkl` olarak pickle formatında kaydediliyor
+- Özet sonuçlar `summary.json` olarak kaydediliyor
+
+---
+
+### Task 12: Opsiyonel Fine-Tuning Desteği
+**Tarih:** 2026-05-08
+**Branch:** `Phase_3`
+
+#### Ne yapıldı?
+- `01_baseline_mcldnn.ipynb` ve `02_baseline_petcgdnn.ipynb` notebook'larına **Bölüm 5.5 — Opsiyonel Fine-Tuning** hücreleri eklendi
+- Fine-tuning ayarları:
+  - Öğrenme oranı: `1e-5` (ana eğitimden 100x düşük)
+  - Epoch: `10`
+  - EarlyStopping patience: `5`
+  - ModelCheckpoint: `val_accuracy` monitör
+- `DO_FINE_TUNING = True/False` ile kolayca açılıp kapatılabilir
+- Fine-tuning geçmişi ayrı `.pkl` dosyasına kaydediliyor
+
+---
+
+### Task 13: `amr_all_in_one.py` — Colab Tek Dosya
+**Tarih:** 2026-05-08
+**Branch:** `Phase_3`
+
+#### Ne yapıldı?
+- Tüm kaynak kodlar (dataset loader, MCLDNN, PETCGDNN, metrics) tek dosyada birleştirildi
+- Colab'da `from amr_all_in_one import *` ile tüm fonksiyonlara erişim sağlanıyor
+- Proje repo'sunu klonlamaya gerek kalmadan kullanılabilir
 
 ---
 
