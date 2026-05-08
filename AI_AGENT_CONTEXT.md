@@ -75,9 +75,9 @@ AMR-UnderDifferentNoises-DL/
 - [x] **T9:** Complete initial training runs on these new fading datasets. (`notebooks/06_train_petcgdnn_fading.ipynb`, `notebooks/07_train_mcldnn_fading.ipynb`)
 
 ### Phase 3: Full Evaluation & Tuning (Week 12) — ⏳ PENDING
-- [ ] **T10:** Collect full experimental results across all channel conditions.
-- [ ] **T11:** Complete hyperparameter tuning (learning rate, batch size, patience).
-- [ ] **T12:** Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
+- [X] **T10:** Collect full experimental results across all channel conditions.
+- [X] **T11:** Complete hyperparameter tuning (learning rate, batch size, patience).
+- [X] **T12:** Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
 - [ ] **T13:** Analyze known confusion pairs (e.g., 16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
 
 ### Phase 4: Reporting & Finalization (Week 13-14) — ⏳ PENDING
