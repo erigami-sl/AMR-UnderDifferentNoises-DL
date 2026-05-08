@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import os
+from sklearn.metrics import f1_score, matthews_corrcoef
 
 
 def calculate_confusion_matrix(Y, Y_hat, classes):
@@ -158,6 +159,72 @@ def plot_per_mod_accuracy(acc_mod_snr, snrs, classes, save_filename=None):
     plt.close()
 
 
+def plot_snr_f1(f1_scores, snrs, title='F1 Score (Macro) vs SNR',
+                save_filename=None):
+    """
+    Plot SNR vs F1 Score (macro average) curve.
+
+    Parameters
+    ----------
+    f1_scores : dict
+        Dictionary mapping SNR values to F1 Score values
+    snrs : list
+        List of SNR values
+    title : str
+        Plot title
+    save_filename : str or None
+        If provided, saves figure to this path
+    """
+    plt.figure(figsize=(10, 6))
+    plt.plot(snrs, list(map(lambda x: f1_scores[x], snrs)), 's-',
+             linewidth=2, color='#E91E63', label='F1 (macro)')
+    plt.xlabel("Signal to Noise Ratio (dB)", fontsize=12)
+    plt.ylabel("F1 Score (Macro)", fontsize=12)
+    plt.title(title, fontsize=14)
+    plt.legend(fontsize=11)
+    plt.grid(True, alpha=0.3)
+    plt.ylim([0, 1])
+    plt.tight_layout()
+    if save_filename is not None:
+        os.makedirs(os.path.dirname(save_filename), exist_ok=True)
+        plt.savefig(save_filename, dpi=300, bbox_inches='tight')
+    plt.show()
+    plt.close()
+
+
+def plot_snr_mcc(mcc_scores, snrs, title='MCC (Matthews Correlation Coefficient) vs SNR',
+                 save_filename=None):
+    """
+    Plot SNR vs Matthews Correlation Coefficient (MCC) curve.
+
+    Parameters
+    ----------
+    mcc_scores : dict
+        Dictionary mapping SNR values to MCC values
+    snrs : list
+        List of SNR values
+    title : str
+        Plot title
+    save_filename : str or None
+        If provided, saves figure to this path
+    """
+    plt.figure(figsize=(10, 6))
+    plt.plot(snrs, list(map(lambda x: mcc_scores[x], snrs)), 'D-',
+             linewidth=2, color='#9C27B0', label='MCC')
+    plt.xlabel("Signal to Noise Ratio (dB)", fontsize=12)
+    plt.ylabel("MCC", fontsize=12)
+    plt.title(title, fontsize=14)
+    plt.legend(fontsize=11)
+    plt.grid(True, alpha=0.3)
+    plt.ylim([-1, 1])
+    plt.tight_layout()
+    if save_filename is not None:
+        os.makedirs(os.path.dirname(save_filename), exist_ok=True)
+        plt.savefig(save_filename, dpi=300, bbox_inches='tight')
+    plt.show()
+    plt.close()
+
+
 def plot_training_history(history, save_dir=None):
     """
     Plot training and validation loss/accuracy curves.
@@ -251,6 +318,8 @@ def evaluate_model(model, X_test_inputs, Y_test, lbl, test_idx, snrs, classes,
 
     # Per-SNR evaluation
     acc = {}
+    f1_scores = {}
+    mcc_scores = {}
     acc_mod_snr = np.zeros((len(classes), len(snrs)))
     test_SNRs = [lbl[x][1] for x in test_idx]
 
@@ -270,6 +339,12 @@ def evaluate_model(model, X_test_inputs, Y_test, lbl, test_idx, snrs, classes,
             np.diag(confnorm_i) / np.sum(confnorm_i, axis=1), 3
         )
 
+        # F1 Score (macro) and MCC for this SNR
+        y_true = np.argmax(test_Y_i, axis=1)
+        y_pred = np.argmax(test_Y_i_hat, axis=1)
+        f1_scores[snr] = f1_score(y_true, y_pred, average='macro')
+        mcc_scores[snr] = matthews_corrcoef(y_true, y_pred)
+
         # Save per-SNR confusion matrix
         if fig_dir:
             plot_confusion_matrix(
@@ -285,6 +360,10 @@ def evaluate_model(model, X_test_inputs, Y_test, lbl, test_idx, snrs, classes,
         plot_snr_accuracy(acc, snrs, save_filename=os.path.join(fig_dir, 'snr_vs_accuracy.png'))
         plot_per_mod_accuracy(acc_mod_snr, snrs, classes,
                               save_filename=os.path.join(fig_dir, 'per_mod_accuracy.png'))
+        plot_snr_f1(f1_scores, snrs,
+                    save_filename=os.path.join(fig_dir, 'snr_vs_f1_macro.png'))
+        plot_snr_mcc(mcc_scores, snrs,
+                     save_filename=os.path.join(fig_dir, 'snr_vs_mcc_metric.png'))
 
     # Save results
     if pred_dir:
@@ -293,15 +372,23 @@ def evaluate_model(model, X_test_inputs, Y_test, lbl, test_idx, snrs, classes,
             pickle.dump(acc, f)
         with open(os.path.join(pred_dir, 'acc_mod_snr.pkl'), 'wb') as f:
             pickle.dump(acc_mod_snr, f)
+        with open(os.path.join(pred_dir, 'f1_macro_scores.pkl'), 'wb') as f:
+            pickle.dump(f1_scores, f)
+        with open(os.path.join(pred_dir, 'mcc_metric_scores.pkl'), 'wb') as f:
+            pickle.dump(mcc_scores, f)
 
     # Print summary
     print("\n" + "=" * 50)
     print("EVALUATION RESULTS")
     print("=" * 50)
     for snr in snrs:
-        print(f"  SNR {snr:+3d} dB : {acc[snr]*100:6.2f}%")
-    overall = np.mean(list(acc.values()))
-    print(f"\n  Overall Average : {overall*100:.2f}%")
+        print(f"  SNR {snr:+3d} dB : Acc={acc[snr]*100:5.2f}%  F1={f1_scores[snr]*100:5.2f}%  MCC={mcc_scores[snr]:.4f}")
+    overall_acc = np.mean(list(acc.values()))
+    overall_f1 = np.mean(list(f1_scores.values()))
+    overall_mcc = np.mean(list(mcc_scores.values()))
+    print(f"\n  Overall Average Accuracy : {overall_acc*100:.2f}%")
+    print(f"  Average F1 (macro)      : {overall_f1*100:.2f}%")
+    print(f"  Average MCC             : {overall_mcc:.4f}")
     print("=" * 50)
 
-    return acc, acc_mod_snr
+    return acc, acc_mod_snr, f1_scores, mcc_scores
