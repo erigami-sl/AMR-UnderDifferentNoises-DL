@@ -74,7 +74,7 @@ AMR-UnderDifferentNoises-DL/
 - [x] **T8:** Visualize the fading effects on IQ signals. (`notebooks/05_visualize_fading_effects.ipynb`)
 - [x] **T9:** Complete initial training runs on these new fading datasets. (`notebooks/06_train_petcgdnn_fading.ipynb`, `notebooks/07_train_mcldnn_fading.ipynb`)
 
-### Phase 3: Full Evaluation & Tuning (Week 12) — ⏳ PENDING
+### Phase 3: Full Evaluation & Tuning (Week 12) — ✅ COMPLETED
 - [X] **T10:** Collect full experimental results across all channel conditions.
 - [X] **T11:** Complete hyperparameter tuning (learning rate, batch size, patience).
 - [X] **T12:** Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
