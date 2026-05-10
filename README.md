@@ -32,7 +32,11 @@ Based on: Zhang, F. et al. (2022). *"Deep Learning Based Automatic Modulation Re
 │   ├── 02_baseline_petcgdnn.ipynb
 │   ├── 03_verify_channels.ipynb
 │   ├── 04_generate_faded_datasets.ipynb
-│   └── 05_visualize_fading_effects.ipynb
+│   ├── 05_visualize_fading_effects.ipynb
+│   ├── 06_train_petcgdnn_fading.ipynb
+│   ├── 07_train_mcldnn_fading.ipynb
+│   ├── 08_finetuning_awgn_on_faded.ipynb
+│   └── 09_results_analysis_and_comparison.ipynb
 ├── data/                       # Dataset (not tracked by git, see data/README.md)
 ├── results/                    # Training results
 ├── requirements.txt

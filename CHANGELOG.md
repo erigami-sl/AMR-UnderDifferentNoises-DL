@@ -17,6 +17,8 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 | Task 11 | CSVLogger ve eğitim geçmişi kaydetme | ✅ Tamamlandı |
 | Task 12 | Opsiyonel Fine-Tuning desteği (notebook'lara eklendi) | ✅ Tamamlandı |
 | Task 13 | `amr_all_in_one.py` — Colab tek dosya entegrasyonu | ✅ Tamamlandı |
+| Task 14 | AWGN ön-eğitimli modellerin Fading kanallarında Fine-Tuning'i | ✅ Tamamlandı |
+| Task 15 | Model ve Kanal Performans Analizi (Kıyaslama Grafikleri) | ✅ Tamamlandı |
 
 ---
 
@@ -68,6 +70,30 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 - Tüm kaynak kodlar (dataset loader, MCLDNN, PETCGDNN, metrics) tek dosyada birleştirildi
 - Colab'da `from amr_all_in_one import *` ile tüm fonksiyonlara erişim sağlanıyor
 - Proje repo'sunu klonlamaya gerek kalmadan kullanılabilir
+
+---
+
+### Task 14: AWGN Modellerini Fading Kanallarında Fine-Tuning Yapma
+**Tarih:** 2026-05-10
+**Branch:** `Phase_3`
+**Notebook:** `08_finetuning_awgn_on_faded.ipynb`
+
+#### Ne yapıldı?
+- AWGN veri setinde baştan eğitilen MCLDNN ve PET-CGDNN modellerinin, Rayleigh ve Rician (K=3, K=10) kanallarına adapte edilmesi için otomatik fine-tuning pipeline'ı kuruldu.
+- Eski sonuçların üzerine yazılmaması için `fine_tuning_results` adında yeni bir kayıt dizini altyapısı oluşturuldu.
+- Keras 3 uyumluluğu gözetilerek `.keras` ve `.weights.h5` geçişleri sağlandı.
+
+---
+
+### Task 15: Model ve Kanal Performans Analizi
+**Tarih:** 2026-05-10
+**Branch:** `Phase_3`
+**Notebook:** `09_results_analysis_and_comparison.ipynb`
+
+#### Ne yapıldı?
+- Modeller arası (MCLDNN vs PET-CGDNN) ve kanallar arası (Rayleigh vs Rician) kıyaslamalar için otomatik grafik çizim sistemi yazıldı.
+- Accuracy, F1 Score (Macro) ve MCC metrikleri kullanılarak tek tablo üzerinde detaylı kıyaslama imkanı eklendi.
+- Çıktıların otomatik olarak yüksek çözünürlüklü `.png` dosyası şeklinde Google Drive'daki `Karsilastirma_Grafikleri` klasörüne kaydedilmesi eklendi.
 
 ---
 
