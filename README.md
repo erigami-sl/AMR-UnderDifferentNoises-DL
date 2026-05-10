@@ -3,8 +3,10 @@
 ## 1. Project Title and Team Members
 **Project Title:** Automatic Modulation Recognition (AMR) Under Different SISO Channel Conditions Using Deep Learning  
 **Team Members:** 
-- Batuhan [Soyadınızı Ekleyin] (Geliştirici)
-- [Varsa Diğer Takım Üyeleri]
+- Batuhan Gedik (Geliştirici)
+- Erkam Tuğ (Geliştirici)
+- Muhammet Anıl Gülaz (Geliştirici)
+- Eren Söker (Geliştirici)
 
 ## 2. Brief Project Description
 Automatic Modulation Recognition (AMR) is a crucial component in modern wireless communication and cognitive radio systems. This project explores the performance of two prominent Deep Learning architectures (MCLDNN and PET-CGDNN) for classifying 11 modulation schemes across a wide range of Signal-to-Noise Ratios (SNR: -20 dB to +18 dB). 
