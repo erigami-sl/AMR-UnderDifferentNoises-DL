@@ -78,7 +78,7 @@ AMR-UnderDifferentNoises-DL/
 - [X] **T10:** Collect full experimental results across all channel conditions.
 - [X] **T11:** Complete hyperparameter tuning (learning rate, batch size, patience).
 - [X] **T12:** Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
-- [ ] **T13:** Analyze known confusion pairs (e.g., 16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
+- [X] **T13:** Analyze known confusion pairs (e.g., 16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
 
 ### Phase 4: Reporting & Finalization (Week 13-14) — ⏳ PENDING
 - [ ] **T14:** Presentation delivery.
