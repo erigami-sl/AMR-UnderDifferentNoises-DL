@@ -75,11 +75,13 @@ AMR-UnderDifferentNoises-DL/
 - [x] **T9:** Complete initial training runs on these new fading datasets. (`notebooks/06_train_petcgdnn_fading.ipynb`, `notebooks/07_train_mcldnn_fading.ipynb`)
 
 ### Phase 3: Full Evaluation & Tuning (Week 12) — ✅ COMPLETED
-- [X] **T10:** Collect full experimental results across all channel conditions.
-- [X] **T11:** Complete hyperparameter tuning (learning rate, batch size, patience).
-- [X] **T12:** Finalize evaluation metrics (accuracy, confusion matrices, SNR vs. accuracy curves).
-- [X] **T13:** Analyze known confusion pairs (e.g., 16QAM/64QAM and WBFM/AM-DSB) under low-SNR.
+- [x] **T10:** Add F1 Score (Macro) and MCC metrics.
+- [x] **T11:** Implement CSVLogger and training history saving.
+- [x] **T12:** Add optional Fine-Tuning support to baseline notebooks.
+- [x] **T13:** Create `amr_all_in_one_core_toolkit.py` for Colab unified deployment.
+- [x] **T14:** Perform automated Fine-Tuning of AWGN models on Fading channels.
+- [x] **T15:** Analyze results and create Model/Channel comparison charts.
 
 ### Phase 4: Reporting & Finalization (Week 13-14) — ⏳ PENDING
-- [ ] **T14:** Presentation delivery.
-- [ ] **T15:** Final report and documented code submission.
+- [ ] **T16:** Final Presentation delivery.
+- [ ] **T17:** Final report and documented code submission.

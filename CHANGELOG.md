@@ -5,7 +5,7 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 
 ---
 
-## Son Güncelleme: 2026-05-08
+## Son Güncelleme: 2026-05-11
 
 ---
 
@@ -394,6 +394,15 @@ Her dosya orijinal dataset ile aynı formatta: 220 anahtar, `(1000, 2, 128)` sha
   3. SNR vs kanal etkisi matrisi (çoklu SNR seviyesi)
   4. Güç dağılımı histogramları (örnek başına güç analizi)
   5. Kanal bozulma ısı haritası (tüm mod/SNR çiftleri için güç oranı)
+
+---
+
+### Faz 4 — Raporlama ve Finalizasyon
+
+| Task | Açıklama | Durum |
+|------|----------|-------|
+| Task 16 | Sunum hazırlıkları ve teslim belgelerinin tamamlanması | ⏳ Bekliyor |
+| Task 17 | Kodun son temizliği ve dokümantasyon kontrolleri | ⏳ Bekliyor |
 
 ---
 
