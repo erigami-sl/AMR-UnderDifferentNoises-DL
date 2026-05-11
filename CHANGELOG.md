@@ -12,7 +12,8 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 ### Task 16 Hazırlık: Sunum Asset Üretim Notebook'u
 **Tarih:** 2026-05-12
 **Branch:** `dev`
-**Notebook:** `notebooks/09_results_analysis_and_comparison.ipynb`
+**Notebook:** `notebooks/09_results_analysis_and_comparison.ipynb`  
+**Prompt Dokümanı:** `PRESENTATION_SLIDE_GENERATION_PROMPT.md`
 
 #### Ne yapıldı?
 - 8 dakikalık / maksimum 10 slaytlık sunum formatına uygun kapsamlı plot üretim notebook'u hazırlandı.
@@ -22,6 +23,8 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 - Notebook'un `presentation_assets/` altında 16 figür ve 2 CSV tablo üretmesi planlandı.
 - Eksik metrik dosyalarını raporlayan `table_01_experiment_inventory.csv` ve özet metrikleri veren `table_02_summary_metrics.csv` eklendi.
 - Checkpoint format farkları envantere dahil edildi (`mcldnn_awgn/best_weights.h5`, diğer `.keras` ve fine-tuning `.weights.h5` dosyaları).
+- Başka bir AI agent'ın 10 slaytlık PPTX-ready sunumu üretmesi için eksiksiz prompt dokümanı oluşturuldu.
+- Prompt içinde her slayt için başlık, metin, layout, konuşmacı notu ve manuel eklenecek görsellerin tam Drive path placeholder'ları belirtildi.
 
 ---
 
