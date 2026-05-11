@@ -16,7 +16,7 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 | Task 10 | F1 Score (Macro) ve MCC metrikleri eklenmesi | ✅ Tamamlandı |
 | Task 11 | CSVLogger ve eğitim geçmişi kaydetme | ✅ Tamamlandı |
 | Task 12 | Opsiyonel Fine-Tuning desteği (notebook'lara eklendi) | ✅ Tamamlandı |
-| Task 13 | `amr_all_in_one.py` — Colab tek dosya entegrasyonu | ✅ Tamamlandı |
+| Task 13 | `amr_all_in_one_core_toolkit.py` — Colab tek dosya entegrasyonu | ✅ Tamamlandı |
 | Task 14 | AWGN ön-eğitimli modellerin Fading kanallarında Fine-Tuning'i | ✅ Tamamlandı |
 | Task 15 | Model ve Kanal Performans Analizi (Kıyaslama Grafikleri) | ✅ Tamamlandı |
 
@@ -62,13 +62,13 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 
 ---
 
-### Task 13: `amr_all_in_one.py` — Colab Tek Dosya
+### Task 13: `amr_all_in_one_core_toolkit.py` — Colab Tek Dosya
 **Tarih:** 2026-05-08
 **Branch:** `Phase_3`
 
 #### Ne yapıldı?
 - Tüm kaynak kodlar (dataset loader, MCLDNN, PETCGDNN, metrics) tek dosyada birleştirildi
-- Colab'da `from amr_all_in_one import *` ile tüm fonksiyonlara erişim sağlanıyor
+- Colab'da `from amr_all_in_one_core_toolkit import *` ile tüm fonksiyonlara erişim sağlanıyor
 - Proje repo'sunu klonlamaya gerek kalmadan kullanılabilir
 
 ---
