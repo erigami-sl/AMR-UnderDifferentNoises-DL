@@ -1,0 +1,15 @@
+strategy,model,channel,mean_accuracy_pct,low_snr_accuracy_pct,high_snr_accuracy_pct,accuracy_at_18db_pct,max_accuracy_pct,snr_at_max_accuracy,mean_f1_macro_pct,mean_mcc_pct
+baseline_awgn,MCLDNN,AWGN,61.27,36.97,90.53,91.23,91.86,8,NA,NA
+baseline_awgn,PET-CGDNN,AWGN,60.75,36.43,90.03,90.68,91.27,12,NA,NA
+fading_trained,MCLDNN,Rayleigh,60.69,36.50,89.94,90.59,90.73,8,NA,NA
+fading_trained,PET-CGDNN,Rayleigh,60.64,35.32,91.10,92.27,92.55,12,NA,NA
+fading_trained,MCLDNN,Rician K=3,57.67,35.58,84.46,84.82,85.27,8,NA,NA
+fading_trained,PET-CGDNN,Rician K=3,60.38,35.83,89.90,91.00,91.18,10,NA,NA
+fading_trained,MCLDNN,Rician K=10,61.33,37.05,90.73,90.77,92.05,4,NA,NA
+fading_trained,PET-CGDNN,Rician K=10,57.55,35.83,83.66,83.50,85.05,8,NA,NA
+fine_tuned,MCLDNN,Rayleigh,60.40,35.93,89.94,90.73,90.95,10,58.08,57.08
+fine_tuned,PET-CGDNN,Rayleigh,58.78,34.62,87.87,88.55,89.18,8,56.68,55.18
+fine_tuned,MCLDNN,Rician K=3,60.78,36.55,89.93,90.64,91.32,8,58.65,57.50
+fine_tuned,PET-CGDNN,Rician K=3,59.84,35.55,89.05,89.64,90.82,10,57.78,56.41
+fine_tuned,MCLDNN,Rician K=10,60.94,36.65,90.17,91.23,91.45,8,58.86,57.71
+fine_tuned,PET-CGDNN,Rician K=10,60.40,36.29,89.40,89.73,91.00,8,58.35,57.06

@@ -1,0 +1,125 @@
+﻿Deep Learning-Based Automatic Modulation Recognition under Different SISO Channel Conditions
+Batuhan Gedik 040230128 gedikba23@itu.edu.tr 
+Erkam Tuğ 040230065 tug23@itu.edu.tr 
+Eren Söker 040200213 soker20@itu.edu.tr
+Muhammet Anıl Gülaz 040230243 gulaz23@itu.edu.tr 
+
+
+________________
+
+
+
+
+1.1 Problem Statement
+● What engineering problem are you solving?
+Developing AMR (Automatic modulation recognition) for low SNR signals. And develop a more practically efficient model for different SISO channel conditions.
+ 
+● Why is this problem important?
+The importance of this problem comes from the channel. In a practical approach, the channel obtains different channel models; therefore, it can affect the efficiency of AMRs, which can lead to misconceptions for determining modulation types.
+
+
+● What makes this a machine learning problem?
+Since there are numerous modulation types, manually searching for the best-matching modulation can be time-consuming and detrimental for large signal cases. Additionally, additive noise can complicate this process significantly. Therefore, we need to make an ML model to make the selection process automatic to reduce the time. 
+● What are the specific challenges?
+Noise and channel are not deterministic; it will be challenging to model them. To overcome this issue, various datasets that obtain channel models and noise types can be used. 
+1.2 Literature and Code Reference
+● Which academic paper(s) are you basing your work on? (Include full citation)
+* Main: Zhang, F., Luo, C., Xu, J., Luo, Y., & Zheng, F. (2022). Deep learning based automatic modulation recognition: Models, datasets, and challenges. Digital Signal Processing, 129, 103650. https://doi.org/10.1016/j.dsp.2022.103650
+   * Additional: J. O’Shea, T. Roy and T. C. Clancy, "Over-the-Air Deep Learning Based Radio Signal Classification," in IEEE Journal of Selected Topics in Signal Processing, vol. 12, no. 1, pp. 168-179, Feb. 2018, https://doi.org/10.1109/JSTSP.2018.2797022 
+
+
+● What is the GitHub repository you will use? (Include link)
+* Main: https://github.com/Richardzhangxx/AMR-Benchmark 
+* Channel and noise Modelling: https://github.com/veeresht/CommPy/blob/master/commpy/channels.py 
+● What does the existing implementation do? 
+The existing implementations basically classify the given signal by using machine learning. It learns from the supervised data and attempts to find the best correlation between the test dataset and the one that matches the best in the list it has learned for SISO systems.
+● What are its limitations or areas for improvement?
+In communication, SNR is a major issue, and it can lead to incorrect outcomes in this research. Therefore, we aim to develop this research for low SNR systems to make it more suitable for commercial use.
+
+
+
+
+
+
+1.3 Dataset Description
+● What data will you use?
+RadioML 2016.10a (DeepSig, GNU Radio). 11 modulation classes, 220,000 samples, 2×128 IQ format, SNR range: -20 to +18 dB.
+
+
+● Is it the same dataset as the original paper/code?
+Yes. Zhang et al. (2022) and AMR-Benchmark both use RML2016.10a as the primary benchmark, allowing for a direct baseline comparison.
+
+
+● What preprocessing is required?
+* Signal normalisation, 60/20/20 train-val-test split (same as paper). 
+* SNR-based grouping for low-SNR analysis.
+* Tensor format conversion. 
+* Additional channel models (such as Rayleigh fading and Rician fading) will be synthetically added to the existing dataset to simulate more realistic and diverse channel conditions.
+
+
+● Are there data quality issues to address?
+The original dataset only includes AWGN. To improve robustness under practical channel conditions, additional channel and noise models will be introduced. Known confusion between 16QAM/64QAM and WBFM/AM-DSB pairs intensifies at low SNR — a direct relevance to our focus.
+
+
+1.4 Proposed Improvements and Approach
+● How will you extend or improve the existing work?
+We plan to reproduce the results from the baseline AMR on the RadioML 2016.10a dataset (Zhang et al., 2022) first, using the original benchmark implementation, to establish baseline performance before extending the project by improving the robustness of theAMR for more realistic noisy SISO channel environments. Specifically, seeking low-SNR and other channel types such as AWGN, Rayleigh and Rician fading, we will proceed beyond standardised benchmark settings to examine the robustness of AMR systems/models in more practical wireless communications environments.
+
+
+● What specific modifications will you make?
+For a fair comparison, we will attempt to keep the original preprocessing and data splitting methods exactly as used in the original benchmark. Therefore, we will use the same signal representation and normalisation as well as the 60/20/20 train-validation-test split identically to the baseline benchmark. Additionally, we are going to generate extra noisy versions of the RadioML 2016.10a dataset under the above mentioned types of noisy conditions. To generate Rayleigh and Rician fading channels, we will use the CommPy library, which provides standard channel models for wireless communications simulations. Limited fine-tuning will happen to boost performance in tough, noisy conditions and with some loss, as it involves repeating the two AMRs from datasets that have noise from different sources[a][b][c][d][e].
+
+
+● What evaluation metrics will you use?
+The primary metrics that will be utilised for evaluation include total classification accuracy, confusion matrices, and signal to noise ratio (SNR) vs. accuracy curves. Overall classification accuracy provides a straightforward indication of how well the model is classifying each modulation class, while confusion matrices provide insight into which modulation classes are the most commonly misclassified. Additionally, SNR based performance curves provide insight into the performance of the model as channel conditions become increasingly difficult. By using these types of evaluation metrics, we will be able to directly compare how well the model performs at various SNR levels and under different types of channel conditions.
+
+
+● How will you demonstrate improvement over the baseline?
+We will be showing improvements on the baseline using the data from controlled tests. We will compare the baseline model to our extended version by looking at classification accuracy, confusion patterns, and how well each model handles different SNR values. Our main goal is to prove that our method performs better or loses less accuracy than the baseline in low-SNR and fading-channel conditions. If our model has higher accuracy or less performance drop in these cases, it will show a clear improvement.
+
+
+
+
+
+
+
+
+1.5 Work Plan and Team Responsibilities
+● Timeline for major tasks
+* Week 5: Proposal finalised and submitted. GitHub repository forked and development environment set up by all members.
+* Week 7: Dataset (RML2016.10a) downloaded and preprocessed. The baseline model was reproduced from the original implementation.
+* Week 9: Progress report submitted. Channel models integrated (AWGN, Rayleigh, Rician). Noisy datasets were generated across multiple SNR levels. Initial training runs completed.
+* Week 12: Full experimental results collected across all channel conditions. Hyperparameter tuning completed. Evaluation metrics (accuracy, confusion matrices, SNR, accuracy curves, etc.) finalised.
+* Week 13: Presentation delivered.
+* Week 14: Final report and documented code submitted.
+
+
+● Work division of each member and their specific responsibilities
+* Eren Söker – Data Preparation + Baseline Model
+   * Data preprocessing
+   * Dataset splitting (train/validation/test)
+   * Training the baseline model used in the original study
+* Muhammet Anıl Gülaz – Channel Modelling
+   * Preparing different channel models (Gaussian, Rayleigh, etc.)
+   * Generating datasets at different SNR levels
+   * Preparing noisy datasets for training and testing
+* Erkam Tuğ – Model Training
+   * Training the existing model with the noisy datasets
+   * Running experiments under different channel conditions
+   * Recording training results
+* Batuhan Gedik – Performance Evaluation + Hyperparameter Tuning
+   * Evaluating model performance under different Channel types and noise conditions
+   * Computing metrics (accuracy, confusion matrix)
+   * Plotting SNR, etc., accuracy graphs
+   * Comparing results across channel- noise[f] models and SNR levels
+   * Performing hyperparameter tuning
+● Risk assessment and contingency plans
+* Risk 1 – Dataset Access Issues: The RML2016.10a dataset is publicly available via radioml.com; however, download or format issues may arise. Contingency: Mirror copies hosted on DeepSig's official channels and community repositories will be used as alternatives.
+* Risk 2 – Baseline Reproduction Failure: The original GitHub implementation may produce inconsistent results due to dependency version mismatches or undocumented configurations. Contingency: The environment will be replicated using the exact library versions specified in the repository. If discrepancies persist, differences will be documented and reported transparently in the Progress Report.
+* Risk 3 – Computational Resource Limitations: Training across multiple channels and noise conditions and SNR levels may exceed available local hardware capacity. Contingency: Google Colab Notebooks will be used as primary GPU environments to ensure uninterrupted training.
+[a]yüksek AI çıkıyor Rewrite gerekli
+[b]Bir tekrar kontrol edebilir misin
+[c]1.4ü biraz daha kısaltsak mı sizce beyler
+[d]guidelineda 1-2 sf demiş kısaltsak iyi olabilir bence de
+[e]sayfa totalde %20 - 30 arası AI gösteriyor, hoca AI yasak demedi kendiniz de yazın dedi o yüzden yeterli olur gibi duruyor, siz ne dersiniz
+[f]channel da olması lazımdı
