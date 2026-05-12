@@ -9,6 +9,22 @@ Bu dosya, projede yapılan önemli değişiklikleri ekibe bildirmek için tutulm
 
 ---
 
+### Task 16b: 8 Dakikalik Final Sunum Deck'i
+**Tarih:** 2026-05-12
+**Ciktilar:**
+- `AMR_SISO_Channel_Presentation.pptx`
+- `AMR_SISO_Channel_Presenter_Notes.md`
+- `generate_amr_presentation.js`
+
+#### Ne yapildi?
+- Verilen maksimum 10 slayt / 8 dakika sunum formatina uygun final PPTX deck'i uretildi.
+- Slayt yapisi ders formatina birebir oturtuldu: problem, referans, dataset, katkilar, sonuclar, analiz ve sonuc.
+- `presentation_assets/` altindaki mevcut grafikler kullanildi; yeni deney/grafik uretimi yapilmadi.
+- PPTX icine 10 slaytin tamami icin konusmaci notlari ve hedef sureler eklendi.
+- Plan metnindeki sure toplamindaki tutarsizlik duzeltilerek toplam hedef sure 7:55 olacak sekilde yeniden dengelendi.
+
+---
+
 ### Task 16 Hazırlık: Sunum Asset Üretim Notebook'u
 **Tarih:** 2026-05-12
 **Branch:** `dev`
