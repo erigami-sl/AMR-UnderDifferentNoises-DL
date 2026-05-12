@@ -4,8 +4,6 @@
 - **Topic:** Automatic Modulation Recognition (AMR) with deep learning under AWGN, Rayleigh, and Rician SISO channels
 - **Team:** Batuhan Gedik, Erkam Tug, Eren Soker, Muhammet Anil Gulaz
 
-This README is written in an IEEE-conference-paper style adapted for GitHub. The structure follows the expected academic flow of the supplied IEEE conference template: abstract, index terms, introduction, methodology, experiments, results, conclusion, and references.
-
 ---
 
 ## Abstract
